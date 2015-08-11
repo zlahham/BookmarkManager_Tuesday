@@ -3,7 +3,7 @@ require_relative '../data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
   get '/' do
-    'Hello bookmark_manager!'
+    erb :welcome
   end
 
   get '/links' do
