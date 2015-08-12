@@ -5,6 +5,8 @@ gem 'rspec'
 gem 'capybara'
 gem 'rspec-sinatra'
 gem 'sinatra'
+gem 'bcrypt'
+gem 'sinatra-flash'
 
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
