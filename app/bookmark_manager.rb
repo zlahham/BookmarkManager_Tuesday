@@ -3,6 +3,7 @@ require 'sinatra/flash'
 require_relative '../data_mapper_setup'
 
 class BookmarkManager < Sinatra::Base
+  use Rack::MethodOverride
   enable :sessions
   register Sinatra::Flash
   set :session_secret, 'super secret'
@@ -28,7 +29,7 @@ class BookmarkManager < Sinatra::Base
 
   post '/links' do
     link = Link.new(url: params[:url], title: params[:title])
-    params[:tag].empty? ? tag_array = ["Untagged"] : tag_array = params[:tag].split(', ')
+    params[:tag].empty? ? tag_array = ['Untagged'] : tag_array = params[:tag].split(', ')
     tag_array.each do |tag|
       new_tag = Tag.create(name: tag.capitalize)
       link.tags << new_tag
@@ -55,11 +56,30 @@ class BookmarkManager < Sinatra::Base
       redirect to('/')
     else
       flash.now[:errors] = @user.errors.full_messages
-      # params[:email].empty? ? "You must fill in a valid email" : "Password and confirmation password do not match"
       erb :'users/new'
     end
   end
 
-  # start the server if ruby file executed directly
-  run! if app_file == $0
+  get '/sessions/new' do
+    erb :'sessions/new'
+  end
+
+  post '/sessions' do
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect('/links')
+    else
+      flash.now[:errors] = ['The email or password is incorrect']
+      erb :'sessions/new'
+    end
+  end
+
+  delete '/sessions' do
+    flash.now[:notice] = ['goodbye!']
+    session[:user_id] = nil
+    erb :'sessions/new'
+  end
+
+  run! if app_file == $PROGRAM_NAME
 end

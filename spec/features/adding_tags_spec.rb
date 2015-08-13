@@ -1,5 +1,4 @@
 feature 'Adding tags' do
-
   scenario 'I can add multiple tags to a new link' do
     visit '/links/new'
     fill_in 'url', with: 'http://www.makersacademy.com'
