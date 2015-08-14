@@ -7,29 +7,11 @@
     <title>Bookmark Manager</title>
   </head>
   <body>
-    <% if current_user %>
-      <h5>Welcome, <%= current_user.email %></h5>
-      <form action="/sessions" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button type="submit" class="btn btn-default btn-xs">Sign out</button>
-      </form>
-      <br>
-    <% end %>
+     <%= partial :meta %>
 
-    <% if flash[:errors] && !flash[:errors].empty? %>
-      Please refer to the following errors below:
-      <ul id="errors">
-        <% flash[:errors].each do |error| %>
-          <li><%= error %></li>
-        <% end  %>
-      </ul>
-    <% end %>
+     <%= partial :welcome %>
 
-    <% if flash[:notice] %>
-      <div id='notice'>
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
+      <%= partial :flash %>
 
     <%= yield %>
     <!-- Latest compiled and minified CSS -->
