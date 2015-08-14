@@ -23,7 +23,7 @@ module Armadillo
         end
       end
 
-      set :views, proc { File.join(root, '..', 'views')}
+      set :views, proc { File.join(root, '..', 'views') }
     end
   end
 end
