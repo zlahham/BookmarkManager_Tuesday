@@ -13,7 +13,7 @@ require 'factory_girl'
 require_relative './factories/user.rb'
 require_relative 'helpers/session'
 
-Capybara.app = BookmarkManager
+Capybara.app = Armadillo::BookmarkManager
 
 RSpec.configure do |config|
   config.include Capybara::DSL
